@@ -15,6 +15,12 @@ cohensfsquared <- function(testmod) {
   names = attributes(testmod$terms)$term.labels #Get names of regressors
   
   fullrsquared = summary(testmod)$r.squared #Get full model r-squared
+  if (ncol(tempdata) == 2) {
+    fsquare = fullrsquared/(1-fullrsquared)
+    message("Note that for linear models with only a single regressor, the formula for global effect size is utilized")
+    print(fsquare)
+  }
+  if (ncol(tempdata) > 2) {
   usenames = names
   interactioncheck = grepl(":",names) #Check for interactions
   
@@ -49,4 +55,5 @@ cohensfsquared <- function(testmod) {
     
   }
   print(outtable)
+  }
 }
